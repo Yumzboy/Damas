@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -91,9 +92,12 @@ class Tablero{
 			}
 		}
 		//work in progress
-		void Mover_Pieza(int x, int y){
+		void Mover_Pieza(){
+			int x,y;
 			Ficha pieza;
 			int resp;
+			cout<<"Ingrese el valor x y luego el valor y"<<endl;
+			cin>>x>>y;
 			if(Espacio[y][x].get_color()=="vacia"){
 				cout<<"Elija un espacio que no este vacio"<<endl;
 				return;
@@ -108,9 +112,9 @@ class Tablero{
 						Espacio[y+1][x-1].eliminar_pieza();
 						Espacio[y+2][x-2]=pieza;
 					}
-				}
-				else
+					else
 					Espacio[y+1][x-1]=pieza;
+				}
 					
 				if(pieza.get_color()=="negra"){
 					
@@ -118,11 +122,17 @@ class Tablero{
 				}
 			}
 			if(resp==2){
-				if(pieza.get_color()=="blanca")
-			    Espacio[y+1][x+1]=pieza;
+				if(pieza.get_color()=="blanca"){
+			    if(Espacio[y+1][x+1].get_color()=="negra"){
+						Espacio[y+1][x+1].eliminar_pieza();
+						Espacio[y+2][x+2]=pieza;
+					}
+					else
+					Espacio[y+1][x+1]=pieza;
 			    
 			    if(pieza.get_color()=="negra")
 			    Espacio[y-1][x+1]=pieza;
+				}
 			}						
 		}
 		//funcion mover necesita condicionales de acciones al comer pieza, [eliminar la pos inicial de la ficha(listo)] y etc
@@ -145,11 +155,15 @@ class Tablero{
 
 int main(int argc, char **argv)
 {
+	int win=0;
 	Tablero hola;
 	hola.iniciar_blancas();
 	hola.iniciar_negras();
-	hola.Imprimir();
-	hola.Mover_Pieza(3,3);
-	hola.Imprimir();
+	while(win==0){
+		hola.Imprimir();
+		hola.Mover_Pieza();
+		system("cls");
+		}
+	
 	return 0;
 }
