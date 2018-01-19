@@ -117,25 +117,34 @@ class Tablero{
 				}
 					
 				if(pieza.get_color()=="negra"){
-					
+					if(Espacio[y-1][x-1].get_color()=="blanca"){
+						Espacio[y-1][x-1].eliminar_pieza();
+						Espacio[y-2][x-2]=pieza;
+					}
+					else
 					Espacio[y-1][x-1]=pieza;
 				}
 			}
 			if(resp==2){
 				if(pieza.get_color()=="blanca"){
-			    if(Espacio[y+1][x+1].get_color()=="negra"){
+			    	if(Espacio[y+1][x+1].get_color()=="negra"){
 						Espacio[y+1][x+1].eliminar_pieza();
 						Espacio[y+2][x+2]=pieza;
 					}
 					else
 					Espacio[y+1][x+1]=pieza;
-			    
-			    if(pieza.get_color()=="negra")
-			    Espacio[y-1][x+1]=pieza;
+				}
+				if(pieza.get_color()=="negra"){
+					if(Espacio[y-1][x+1].get_color()=="blanca"){
+						Espacio[y-1][x+1].eliminar_pieza();
+						Espacio[y-2][x+2]=pieza;
+					}
+					else
+					Espacio[y-1][x+1]=pieza;
 				}
 			}						
 		}
-		//funcion mover necesita condicionales de acciones al comer pieza, [eliminar la pos inicial de la ficha(listo)] y etc
+		//funcion mover necesita condicionales de acciones al comer pieza, para los casos de ficha negra, casos de no salirse del tablero
 		void Imprimir(){
 			int i,j;
 			for (i=0;i<8;i++){
